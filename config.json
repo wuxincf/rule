@@ -1,0 +1,1943 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "cache_id": "my_profile2",
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_ui": "ui",
+      "external_controller": "0.0.0.0:9090",
+      "external_ui_download_detour": "Proxy",
+      "default_mode": "rule"
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "google",
+        "address": "tls://8.8.8.8",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "fallback",
+        "address": "8.8.8.8",
+        "address_resolver": "google",
+        "detour": "Proxy"
+      },
+      {
+        "tag": "local-dns",
+        "address": "223.5.5.5",
+        "detour": "direct"
+      },
+      {
+        "tag": "fakeip-dns",
+        "address": "fakeip"
+      },
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "local-dns"
+      },
+      {
+        "rule_set": [
+          "Youtube0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Telegram1"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Netflix0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "server": "fakeip-dns"
+      },
+      {
+        "rule_set": [
+          "Direct1"
+        ],
+        "server": "local-dns"
+      },
+      {
+        "query_type": [
+          "A"
+        ],
+        "rewrite_ttl": 1,
+        "server": "fakeip-dns"
+      }
+    ],
+    "strategy": "ipv4_only",
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15"
+    }
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 8888,
+      "sniff": true
+    },
+    {
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 9888,
+      "sniff_override_destination": true,
+      "sniff": true
+    },
+    {
+      "type": "direct",
+      "listen": "::",
+      "listen_port": 53,
+      "sniff": true,
+      "tag": "dns-in"
+    }
+  ],
+  "route": {
+    "rule_set": [
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Youtube0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/youtube.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Telegram0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Telegram1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/telegram.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Github0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/github.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Openai0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/openai.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Netflix0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Netflix1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo-lite/geoip/netflix.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Google0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/google.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Direct0",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geoip/cn.srs"
+      },
+      {
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "Proxy",
+        "tag": "Direct1",
+        "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/sing/geo/geosite/cn.srs"
+      }
+    ],
+    "rules": [
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 853
+          },
+          {
+            "network": "udp",
+            "port": 443
+          },
+          {
+            "protocol": "stun"
+          }
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "Youtube0"
+        ],
+        "outbound": "Youtube"
+      },
+      {
+        "rule_set": [
+          "Telegram0",
+          "Telegram1"
+        ],
+        "outbound": "Telegram"
+      },
+      {
+        "rule_set": [
+          "Github0"
+        ],
+        "outbound": "Github"
+      },
+      {
+        "rule_set": [
+          "Openai0"
+        ],
+        "outbound": "Openai"
+      },
+      {
+        "rule_set": [
+          "Netflix0",
+          "Netflix1"
+        ],
+        "outbound": "Netflix"
+      },
+      {
+        "rule_set": [
+          "Google0"
+        ],
+        "outbound": "Google"
+      },
+      {
+        "rule_set": [
+          "Direct0",
+          "Direct1"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      }
+    ],
+    "auto_detect_interface": true,
+    "final": "Proxy"
+  },
+  "outbounds": [
+    {
+      "tag": "Proxy",
+      "outbounds": [
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Youtube",
+      "outbounds": [
+        "Proxy",
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Telegram",
+      "outbounds": [
+        "Proxy",
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Github",
+      "outbounds": [
+        "Proxy",
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Openai",
+      "outbounds": [
+        "Proxy",
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Netflix",
+      "outbounds": [
+        "Proxy",
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "Google",
+      "outbounds": [
+        "Proxy",
+        "全部",
+        "🇭🇰 香港",
+        "🇯🇵 日本",
+        "🇺🇸 美国"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "全部",
+      "outbounds": [
+        "香港-中转-01",
+        "同款机场: https://free.byxiao.top",
+        "美国自建 [防失联节点]",
+        "通知频道: https://t.me/byxiaobaoya",
+        "机场 🇺🇸 美国 01",
+        "机场 🇺🇸 美国 02",
+        "机场 🇺🇸 美国 03",
+        "机场 🇺🇸 美国 04",
+        "机场 🇺🇸 美国 05",
+        "机场 🇺🇸 美国 06",
+        "机场 🇺🇸 美国 07",
+        "机场 🇺🇸 美国 08",
+        "机场 🇺🇸 美国 09",
+        "机场 🇺🇸 美国 10",
+        "机场 🇦🇺 澳大利亚 01",
+        "机场 🇳🇱 荷兰 01",
+        "机场 🇳🇱 荷兰 02",
+        "机场 🇯🇵 日本 01",
+        "机场 🇯🇵 日本 02",
+        "机场 🇯🇵 日本 03",
+        "机场 🇯🇵 日本 04",
+        "机场 🇯🇵 日本 05",
+        "机场 🇯🇵 日本 06",
+        "机场 🇸🇬 新加坡 01",
+        "机场 🇸🇬 新加坡 02",
+        "机场 🇸🇬 新加坡 03",
+        "机场 🇰🇷 韩国 01",
+        "机场 🇰🇷 韩国 02",
+        "机场 🇰🇷 韩国 03",
+        "机场 🇰🇷 韩国 04",
+        "机场 🇰🇷 韩国 05",
+        "机场 🇰🇷 韩国 06",
+        "机场 🇰🇷 韩国 07",
+        "机场 🇧🇷 巴西 01",
+        "机场 🇳🇱 荷兰 0.1× 01",
+        "机场 🇳🇱 荷兰 0.1× 02",
+        "机场 🇳🇱 荷兰 0.1× 03",
+        "机场 🇭🇰 香港 01",
+        "机场 🇭🇰 香港 02",
+        "机场 🇺🇸 美国 0.1× 01",
+        "机场 🇺🇸 美国 0.1× 02",
+        "机场 🇨🇳 台湾 01",
+        "机场 🇫🇷 法国 01",
+        "机场 🇫🇷 法国 02",
+        "机场 🇫🇷 法国 03",
+        "机场 🇦🇪 阿联酋 01",
+        "机场 🇩🇪 德国 01",
+        "机场 🇩🇪 德国 02",
+        "机场 🇮🇳 印度 01",
+        "机场 🇮🇳 印度 02",
+        "机场 🇬🇧 英国 01",
+        "机场 🇬🇧 英国 02",
+        "加拿大 - 多伦多 - GLOBALTELEHOST Corp. - 1",
+        "美国 - 洛杉矶 - Psychz Networks - 16",
+        "美国 - 洛杉矶 - Psychz Networks - 21",
+        "美国 - 洛杉矶 - Psychz Networks - 31",
+        "美国 - 洛杉矶 - Psychz Networks - 37",
+        "美国 - 洛杉矶 - Psychz Networks - 38",
+        "美国 - 洛杉矶 - Psychz Networks - 44",
+        "美国 - 洛杉矶 - Psychz Networks - 46",
+        "美国 - 洛杉矶 - Psychz Networks - 53",
+        "美国 - 洛杉矶 - Psychz Networks - 54",
+        "美国 - 洛杉矶 - Psychz Networks - 55",
+        "美国 - 洛杉矶 - Psychz Networks - 57",
+        "美国 - 洛杉矶 - Psychz Networks - 61",
+        "美国 - 洛杉矶 - Psychz Networks - 64",
+        "美国 - 洛杉矶 - Psychz Networks - 68",
+        "美国 - 洛杉矶 - Psychz Networks - 10",
+        "美国 - 洛杉矶 - Psychz Networks - 59",
+        "美国 - 洛杉矶 - Psychz Networks - 15",
+        "美国 - 洛杉矶 - Psychz Networks - 23",
+        "美国 - 洛杉矶 - Psychz Networks - 13",
+        "美国 - 洛杉矶 - Psychz Networks - 19",
+        "美国 - 洛杉矶 - Psychz Networks - 39",
+        "美国 - 洛杉矶 - Psychz Networks - 63",
+        "美国 - 洛杉矶 - Psychz Networks - 35",
+        "美国 - 洛杉矶 - Psychz Networks - 49",
+        "美国 - 洛杉矶 - Psychz Networks - 20",
+        "芬兰 - 赫尔辛基 - Hetzner Online GmbH - 2",
+        "乌克兰 - Kyiv - Stark Industries Solutions LTD - 1",
+        "德国 - 法兰克福 - G-Core Labs S.A. - 3",
+        "美国 - 洛杉矶 - Psychz Networks - 22",
+        "美国 - 洛杉矶 - Psychz Networks - 42",
+        "美国 - 洛杉矶 - Psychz Networks - 60"
+      ],
+      "interrupt_exist_connections": true,
+      "type": "selector"
+    },
+    {
+      "tag": "🇭🇰 香港",
+      "outbounds": [
+        "香港-中转-01",
+        "机场 🇭🇰 香港 01",
+        "机场 🇭🇰 香港 02"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇯🇵 日本",
+      "outbounds": [
+        "机场 🇯🇵 日本 01",
+        "机场 🇯🇵 日本 02",
+        "机场 🇯🇵 日本 03",
+        "机场 🇯🇵 日本 04",
+        "机场 🇯🇵 日本 05",
+        "机场 🇯🇵 日本 06"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇺🇸 美国",
+      "outbounds": [
+        "美国自建 [防失联节点]",
+        "机场 🇺🇸 美国 01",
+        "机场 🇺🇸 美国 02",
+        "机场 🇺🇸 美国 03",
+        "机场 🇺🇸 美国 04",
+        "机场 🇺🇸 美国 05",
+        "机场 🇺🇸 美国 06",
+        "机场 🇺🇸 美国 07",
+        "机场 🇺🇸 美国 08",
+        "机场 🇺🇸 美国 09",
+        "机场 🇺🇸 美国 10",
+        "机场 🇺🇸 美国 0.1× 01",
+        "机场 🇺🇸 美国 0.1× 02",
+        "美国 - 洛杉矶 - Psychz Networks - 16",
+        "美国 - 洛杉矶 - Psychz Networks - 21",
+        "美国 - 洛杉矶 - Psychz Networks - 31",
+        "美国 - 洛杉矶 - Psychz Networks - 37",
+        "美国 - 洛杉矶 - Psychz Networks - 38",
+        "美国 - 洛杉矶 - Psychz Networks - 44",
+        "美国 - 洛杉矶 - Psychz Networks - 46",
+        "美国 - 洛杉矶 - Psychz Networks - 53",
+        "美国 - 洛杉矶 - Psychz Networks - 54",
+        "美国 - 洛杉矶 - Psychz Networks - 55",
+        "美国 - 洛杉矶 - Psychz Networks - 57",
+        "美国 - 洛杉矶 - Psychz Networks - 61",
+        "美国 - 洛杉矶 - Psychz Networks - 64",
+        "美国 - 洛杉矶 - Psychz Networks - 68",
+        "美国 - 洛杉矶 - Psychz Networks - 10",
+        "美国 - 洛杉矶 - Psychz Networks - 59",
+        "美国 - 洛杉矶 - Psychz Networks - 15",
+        "美国 - 洛杉矶 - Psychz Networks - 23",
+        "美国 - 洛杉矶 - Psychz Networks - 13",
+        "美国 - 洛杉矶 - Psychz Networks - 19",
+        "美国 - 洛杉矶 - Psychz Networks - 39",
+        "美国 - 洛杉矶 - Psychz Networks - 63",
+        "美国 - 洛杉矶 - Psychz Networks - 35",
+        "美国 - 洛杉矶 - Psychz Networks - 49",
+        "美国 - 洛杉矶 - Psychz Networks - 20",
+        "乌克兰 - Kyiv - Stark Industries Solutions LTD - 1",
+        "美国 - 洛杉矶 - Psychz Networks - 22",
+        "美国 - 洛杉矶 - Psychz Networks - 42",
+        "美国 - 洛杉矶 - Psychz Networks - 60"
+      ],
+      "type": "urltest",
+      "url": "https://www.gstatic.com/generate_204",
+      "tolerance": 50,
+      "interrupt_exist_connections": false
+    },
+    {
+      "type": "direct",
+      "tag": "➜ Direct"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "tag": "香港-中转-01",
+      "server": "zzhk1.fq5201314.uk",
+      "server_port": 10001,
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "NTY4MDA1OTEyOWY4YWI5NDc5NGYzN2M4MzA1Y2EzYWE=",
+      "plugin": "",
+      "plugin_opts": ""
+    },
+    {
+      "tag": "同款机场: https://free.byxiao.top",
+      "server": "dcumoz.cijhgvbm.xyz",
+      "server_port": 10031,
+      "type": "vmess",
+      "uuid": "42006f77-5c96-3f27-b059-983c064325cd",
+      "security": "auto",
+      "network": "tcp",
+      "alter_id": 0
+    },
+    {
+      "tag": "美国自建 [防失联节点]",
+      "server": "rn.byxiao.top",
+      "server_port": 6417,
+      "type": "hysteria2",
+      "password": "dbd861ce",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "rn.byxiao.top"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "通知频道: https://t.me/byxiaobaoya",
+      "server": "103.114.201.44",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "78d81e00-bbe5-4607-949f-3a45b7b381c9",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "103.114.201.44"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "机场 🇺🇸 美国 01",
+      "server": "163.123.192.140",
+      "server_port": 54000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "163.123.192.140"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇺🇸 美国 02",
+      "server": "163.123.192.112",
+      "server_port": 54000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "163.123.192.112"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇺🇸 美国 03",
+      "server": "108.181.22.153",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "108.181.22.153"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇺🇸 美国 04",
+      "server": "108.181.23.241",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "108.181.23.241"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇺🇸 美国 05",
+      "server": "108.181.23.249",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "108.181.23.249"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇺🇸 美国 06",
+      "server": "108.181.23.255",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "108.181.23.255"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇺🇸 美国 07",
+      "server": "163.123.192.186",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfus1.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇺🇸 美国 08",
+      "server": "148.59.74.251",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfus2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇺🇸 美国 09",
+      "server": "155.248.213.85",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-45dc0-9ocf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇺🇸 美国 10",
+      "server": "152.70.147.168",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-45dc0-9ocf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇦🇺 澳大利亚 01",
+      "server": "192.9.176.249",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "192.9.176.249"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇳🇱 荷兰 01",
+      "server": "204.10.194.86",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "204.10.194.86"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇳🇱 荷兰 02",
+      "server": "158.101.195.118",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "b295-23nl29-6bh.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇯🇵 日本 01",
+      "server": "138.2.2.120",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "138.2.2.120"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇯🇵 日本 02",
+      "server": "141.147.156.163",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "141.147.156.163"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇯🇵 日本 03",
+      "server": "138.2.31.176",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "138.2.31.176"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇯🇵 日本 04",
+      "server": "138.3.208.201",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "138.3.208.201"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇯🇵 日本 05",
+      "server": "162.159.58.35",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfjcjp1.yfjc.sbs",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "path": "/yfjc/jp1",
+        "headers": {
+          "Host": "yfjcjp1.yfjc.sbs"
+        },
+        "type": "ws",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "tag": "机场 🇯🇵 日本 06",
+      "server": "162.159.58.35",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfjcjp2.yfjc.sbs",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "path": "/yfjc/jp1",
+        "headers": {
+          "Host": "yfjcjp2.yfjc.sbs"
+        },
+        "type": "ws",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "tag": "机场 🇸🇬 新加坡 01",
+      "server": "168.138.184.187",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "168.138.184.187"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇸🇬 新加坡 02",
+      "server": "168.138.188.106",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "168.138.188.106"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇸🇬 新加坡 03",
+      "server": "54.179.4.150",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfsg.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 01",
+      "server": "132.226.171.133",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "132.226.171.133"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 02",
+      "server": "152.70.234.101",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "152.70.234.101"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 03",
+      "server": "193.122.106.44",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "193.122.106.44"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 04",
+      "server": "150.230.253.68",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "150.230.253.68"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 05",
+      "server": "158.179.164.122",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "158.179.164.122"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 06",
+      "server": "132.145.88.245",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "b295-23ap29-6bh.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇰🇷 韩国 07",
+      "server": "193.122.116.235",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "b295-23ap29-6bh.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇧🇷 巴西 01",
+      "server": "129.148.39.249",
+      "server_port": 20000,
+      "type": "hysteria2",
+      "password": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "129.148.39.249"
+      },
+      "tcp_fast_open": false
+    },
+    {
+      "tag": "机场 🇳🇱 荷兰 0.1× 01",
+      "server": "204.10.194.78",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfnl1.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇳🇱 荷兰 0.1× 02",
+      "server": "77.37.33.136",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "k7nl1.yfjc.sbs",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        }
+      },
+      "transport": {
+        "path": "/yfjc/knl1",
+        "headers": {
+          "Host": "k7nl1.yfjc.sbs"
+        },
+        "type": "ws",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "tag": "机场 🇳🇱 荷兰 0.1× 03",
+      "server": "188.42.145.72",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "y0nl2.yfjc.sbs",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "path": "/yfjc/knl2",
+        "headers": {
+          "Host": "y0nl2.yfjc.sbs"
+        },
+        "type": "ws",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "tag": "机场 🇭🇰 香港 01",
+      "server": "3bd9.55dca.e048.f65-fef1f.yfjcs.com",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfhk1.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇭🇰 香港 02",
+      "server": "3bd9.55dca.e048.f65-fef1f.yfjcs.com",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "yfhk1.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇺🇸 美国 0.1× 01",
+      "server": "185.176.24.87",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "k7us1.yfjc.sbs",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "path": "/yfjc/kus1",
+        "headers": {
+          "Host": "k7us1.yfjc.sbs"
+        },
+        "type": "ws",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "tag": "机场 🇺🇸 美国 0.1× 02",
+      "server": "89.116.161.168",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "k6us2.yfjc.sbs",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        }
+      },
+      "transport": {
+        "path": "/yfjc/kus2",
+        "headers": {
+          "Host": "k6us2.yfjc.sbs"
+        },
+        "type": "ws",
+        "max_early_data": 2048,
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "tag": "机场 🇨🇳 台湾 01",
+      "server": "3bd9.55dba.e048.f65-fef1f.yfjcs.com",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "tw.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇫🇷 法国 01",
+      "server": "89.168.37.109",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "downloadfr.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇫🇷 法国 02",
+      "server": "141.145.200.125",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "b2-9fr2329-6bh.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇫🇷 法国 03",
+      "server": "144.24.206.147",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "b2-9fr5232-96bh.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇦🇪 阿联酋 01",
+      "server": "193.123.79.22",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "b295-23ae29-6bh.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇩🇪 德国 01",
+      "server": "150.230.147.10",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-85dc0-9ocf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "firefox"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇩🇪 德国 02",
+      "server": "158.180.60.152",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-85dc0-9ocf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇮🇳 印度 01",
+      "server": "129.154.254.128",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-38dc0-9ocf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇮🇳 印度 02",
+      "server": "129.159.227.221",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-7kjd0-9kcf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇬🇧 英国 01",
+      "server": "132.226.210.116",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-38dc0-9icf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "safari"
+        }
+      }
+    },
+    {
+      "tag": "机场 🇬🇧 英国 02",
+      "server": "143.47.236.28",
+      "server_port": 443,
+      "type": "vless",
+      "uuid": "3e86bcdf-ffc9-466a-b27e-0826b9340196",
+      "flow": "xtls-rprx-vision",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "767w1-38dc0-9kcf2.xn--4gq62f52gppi29k.com",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "ios"
+        }
+      }
+    },
+    {
+      "tag": "加拿大 - 多伦多 - GLOBALTELEHOST Corp. - 1",
+      "server": "23.162.200.227",
+      "server_port": 443,
+      "type": "vmess",
+      "uuid": "03fcc618-b93d-6796-6aed-8a38c975d581",
+      "security": "auto",
+      "network": "tcp",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "tls"
+      },
+      "transport": {
+        "path": "/linkvws",
+        "headers": {
+          "Host": "23.162.200.227"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 16",
+      "server": "104.18.15.19",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 21",
+      "server": "104.19.51.232",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "29eebb60-b27b-4a9d-bba5-947763d9205e",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip005.dtku47.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 31",
+      "server": "104.17.106.151",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 37",
+      "server": "104.26.5.112",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 38",
+      "server": "104.18.14.19",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 44",
+      "server": "104.19.45.19",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip13.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 46",
+      "server": "104.19.46.233",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "29eebb60-b27b-4a9d-bba5-947763d9205e",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip005.3196772.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 53",
+      "server": "104.19.32.46",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "29eebb60-b27b-4a9d-bba5-947763d9205e",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip006.3196772.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 54",
+      "server": "162.159.140.89",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 55",
+      "server": "162.159.140.33",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 57",
+      "server": "162.159.140.77",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 61",
+      "server": "104.19.46.39",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 64",
+      "server": "www.visa.com",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 68",
+      "server": "104.26.13.31",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 10",
+      "server": "172.64.166.22",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip2.1457230.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 59",
+      "server": "104.19.46.56",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 15",
+      "server": "104.19.57.4",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip2.1457230.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 23",
+      "server": "104.26.5.123",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 13",
+      "server": "104.19.55.49",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip2.1457230.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 19",
+      "server": "104.19.45.90",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip13.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 39",
+      "server": "104.19.47.77",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 63",
+      "server": "162.159.140.93",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 35",
+      "server": "104.19.46.103",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip2.1457230.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 49",
+      "server": "ip.sb",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 20",
+      "server": "104.19.47.32",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "芬兰 - 赫尔辛基 - Hetzner Online GmbH - 2",
+      "server": "104.21.61.246",
+      "server_port": 443,
+      "type": "vmess",
+      "uuid": "f9ccede9-ca9c-4719-b105-e494742499e3",
+      "security": "auto",
+      "network": "tcp",
+      "tls": {
+        "enabled": true,
+        "insecure": true,
+        "server_name": "tls"
+      },
+      "transport": {
+        "path": "/",
+        "headers": {
+          "Host": "kmz3.sassanidempire.com"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "乌克兰 - Kyiv - Stark Industries Solutions LTD - 1",
+      "server": "104.18.103.1",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "aa6c09dc-aa4a-4914-b439-6d8117f733a3",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/vmess#t-me-DarkVPNpro-t-me-DarkVPNpro-t-me-DarkVPNpro-t-me-DarkVPNpro-t-me-DarkVPNpro-t-me-DarkVPNpro-t-me-DarkVPNpro-t-me-DarkVPNpro",
+        "headers": {
+          "Host": "127.0.0.1.%D0%B2%D0%BE%D1%81%D1%82%D0%B5%D0%B9control.k%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C%E8%BE%B2%E9%81%94%E6%87%B2%E7%BD%B0.wonkacapitano.buzz."
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "德国 - 法兰克福 - G-Core Labs S.A. - 3",
+      "server": "104.26.15.148",
+      "server_port": 80,
+      "type": "vmess",
+      "uuid": "947cb385-54b4-4453-ac92-63c95ef32a6a",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "/V2LINE-TELEGRAM-CHANNEL-VMESS-WS",
+        "headers": {
+          "Host": "39238319310964543920519489701900.chrsjfklsdjfkljoierfdjklfjlkefeojsdlkfjeoifjsdlkfjweoifjlsdchrs.cyou"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 22",
+      "server": "104.19.58.175",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 42",
+      "server": "104.26.0.56",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip14.freegradely.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    },
+    {
+      "tag": "美国 - 洛杉矶 - Psychz Networks - 60",
+      "server": "104.26.5.145",
+      "server_port": 2086,
+      "type": "vmess",
+      "uuid": "e9e3cc13-db48-4cc1-8c24-7626439a5339",
+      "security": "auto",
+      "network": "tcp",
+      "transport": {
+        "path": "github.com/Alvin9999",
+        "headers": {
+          "Host": "ip1.1789034.xyz"
+        },
+        "type": "ws"
+      },
+      "alter_id": 0
+    }
+  ]
+}
